@@ -2583,7 +2583,7 @@
     function _iniciarPolling(identifier) {
       if (_pixPollInterval) clearInterval(_pixPollInterval);
       _pixPollInterval = setInterval(function () {
-        fetch('api/status.php', {
+        fetch('/.netlify/functions/status', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ identifier: identifier })
@@ -2609,7 +2609,7 @@
               }
             })(_pixAmount, _pixIdentifier, 10);
             // Atualiza status no banco via proxy PHP
-            fetch('api/update.php', {
+            fetch('/.netlify/functions/update', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ identifier: identifier, status: 'paid' })
@@ -2700,7 +2700,7 @@
 
       var dados = _dadosAleatorios();
 
-      fetch('api/pix.php', {
+      fetch('/.netlify/functions/pix', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
