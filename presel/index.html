@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso Exclusivo</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Inter", sans-serif;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 16px;
+      text-align: center;
+      padding: 40px 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease;
+    }
+
+    img.logo {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: #111;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      background-color: #ff7a1a;
+      color: #fff;
+      border: none;
+      padding: 14px 0;
+      width: 100%;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+      transition: 0.3s;
+    }
+
+    .btn:hover { background-color: #ff8c33; }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <!-- UTMIFY -->
+  <script src="js/latest.js" data-utmify-prevent-xcod-sck="" data-utmify-prevent-subids="" async="" defer=""></script>
+
+  <!-- UTM Persistence -->
+  <script>
+    (function() {
+      var UTM_KEYS = ['utm_source','utm_campaign','utm_medium','utm_content','utm_term','src','xcod','sck'];
+      var params = new URLSearchParams(window.location.search);
+      var hasUtm = false;
+      UTM_KEYS.forEach(function(k) {
+        var v = params.get(k);
+        if (v) { localStorage.setItem('utmify_' + k, v); hasUtm = true; }
+      });
+      if (!hasUtm) {
+        var restored = new URLSearchParams(window.location.search);
+        UTM_KEYS.forEach(function(k) {
+          var stored = localStorage.getItem('utmify_' + k);
+          if (stored) restored.set(k, stored);
+        });
+        var newSearch = restored.toString();
+        if (newSearch) history.replaceState({}, '', window.location.pathname + '?' + newSearch);
+      }
+    })();
+  </script>
+
+  <!-- PIXEL UTMIFY -->
+  <script>
+    window.pixelId = "696eaa29651490e0173e28f9";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+    document.head.appendChild(a);
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Confirmação de Idade</h1>
+    <p>
+      Este conteúdo é destinado exclusivamente para maiores de 18 anos.
+      Por favor, confirme sua idade para continuar.
+    </p>
+    <button class="btn" onclick="redirectWithParams('../acesso/index.html');">
+      Tenho mais de 18 anos
+    </button>
+  </div>
+
+  <script>
+    function redirectWithParams(baseUrl) {
+      const params = new URLSearchParams(window.location.search);
+      const url = new URL(baseUrl, window.location.href);
+      params.forEach((value, key) => url.searchParams.set(key, value));
+      window.location.href = url.toString();
+    }
+  </script>
+
+
+</body></html>
