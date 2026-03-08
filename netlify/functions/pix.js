@@ -1,5 +1,5 @@
-const CLIENT_ID = '05835457-fc65-481f-bbb1-eeb2bf5ce2a1';
-const CLIENT_SECRET = '9a137442-1dc5-4a81-b88a-c883379c3483';
+const CLIENT_ID = '01c5933d-3ecd-4782-8a79-2b96a8d41e92';
+const CLIENT_SECRET = 'eab4b472-730b-43b5-97af-0ee68fb1f195';
 const API_BASE = 'https://api.syncpayments.com.br';
 
 let cachedToken = null;
@@ -19,7 +19,7 @@ async function getToken() {
                 client_secret: CLIENT_SECRET
             })
         });
-        
+
         const data = await response.json();
         if (response.ok && data.access_token) {
             cachedToken = data.access_token;
@@ -33,7 +33,7 @@ async function getToken() {
     }
 }
 
-exports.handler = async function(event, context) {
+exports.handler = async function (event, context) {
     // Apenas permite POST
     if (event.httpMethod !== 'POST') {
         return {
@@ -56,8 +56,8 @@ exports.handler = async function(event, context) {
         const token = await getToken();
 
         // Determinar URL de callback se hospedado, baseado no host atual
-        const webhook_url = event.headers.host 
-            ? `https://${event.headers.host}/.netlify/functions/webhook` 
+        const webhook_url = event.headers.host
+            ? `https://${event.headers.host}/.netlify/functions/webhook`
             : 'https://site.com/webhook';
 
         const payload = {

@@ -1,5 +1,5 @@
-const CLIENT_ID = '05835457-fc65-481f-bbb1-eeb2bf5ce2a1';
-const CLIENT_SECRET = '9a137442-1dc5-4a81-b88a-c883379c3483';
+const CLIENT_ID = '01c5933d-3ecd-4782-8a79-2b96a8d41e92';
+const CLIENT_SECRET = 'eab4b472-730b-43b5-97af-0ee68fb1f195';
 const API_BASE = 'https://api.syncpayments.com.br';
 
 let cachedToken = null;
