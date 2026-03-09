@@ -12,23 +12,46 @@
   <link rel="stylesheet" href="css/popup.css">
   <link rel="stylesheet" href="css/all.min.css">
 
-  <!-- Google tag (gtag.js) -->
-  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E02EKB0NWJ"></script>
+  <!-- Meta Pixel Code -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-E02EKB0NWJ');
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1465765375140066');
+    fbq('track', 'PageView');
   </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1465765375140066&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
 
-
-  <!-- Utmify UTMs -->
-  <script src="js/latest.js" data-utmify-prevent-xcod-sck="" data-utmify-prevent-subids="" async="" defer=""></script>
+  <!-- Anti-Clonagem e Proteção -->
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function (e) {
+      if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+        return false;
+      }
+    };
+    (function () {
+      const allowedDomains = ['localhost', 'viviinoronhaa.netlify.app', 'privacyvivinoronha.store'];
+      const currentDomain = window.location.hostname;
+      if (!allowedDomains.some(domain => currentDomain.includes(domain))) {
+        window.location.href = 'https://viviinoronhaa.netlify.app';
+      }
+    })();
+  </script>
 
   <!-- PIXEL UTMIFY -->
   <script>
-    window.pixelId = "696eaa29651490e0173e28f9";
+    window.pixelId = "69af0ed0cb047e6d72aeba3e";
     var a = document.createElement("script");
     a.setAttribute("async", "");
     a.setAttribute("defer", "");
@@ -36,12 +59,19 @@
     document.head.appendChild(a);
   </script>
 
-  <!-- UTM Persistence: salva UTMs na URL no localStorage e restaura se URL estiver vazia -->
   <script>
     (function () {
       var UTM_KEYS = ['utm_source', 'utm_campaign', 'utm_medium', 'utm_content', 'utm_term', 'src', 'xcod', 'sck'];
       var params = new URLSearchParams(window.location.search);
       var hasUtm = false;
+
+      // Se não houver params na URL mas houver o código de UTM do usuário, força os novos valores
+      if (!window.location.search.includes('utm_source=')) {
+        var newParams = "utm_source=FB&utm_campaign={{campaign.name}}|{{campaign.id}}&utm_medium={{adset.name}}|{{adset.id}}&utm_content={{ad.name}}|{{ad.id}}&utm_term={{placement}}";
+        history.replaceState({}, '', window.location.pathname + '?' + newParams + window.location.hash);
+        params = new URLSearchParams(window.location.search);
+      }
+
       UTM_KEYS.forEach(function (k) {
         var v = params.get(k);
         if (v) { localStorage.setItem('utmify_' + k, v); hasUtm = true; }

@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="pt-BR"><head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acesso Exclusivo</title>
@@ -21,7 +24,7 @@
       padding: 40px 20px;
       width: 90%;
       max-width: 400px;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
       animation: fadeIn 1s ease;
     }
 
@@ -57,17 +60,34 @@
       transition: 0.3s;
     }
 
-    .btn:hover { background-color: #ff8c33; }
+    .btn:hover {
+      background-color: #ff8c33;
+    }
 
     @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 
@@ -76,17 +96,25 @@
 
   <!-- UTM Persistence -->
   <script>
-    (function() {
-      var UTM_KEYS = ['utm_source','utm_campaign','utm_medium','utm_content','utm_term','src','xcod','sck'];
+    (function () {
+      var UTM_KEYS = ['utm_source', 'utm_campaign', 'utm_medium', 'utm_content', 'utm_term', 'src', 'xcod', 'sck'];
       var params = new URLSearchParams(window.location.search);
       var hasUtm = false;
-      UTM_KEYS.forEach(function(k) {
+
+      // Se não houver params na URL mas houver o código de UTM do usuário, força os novos valores
+      if (!window.location.search.includes('utm_source=')) {
+        var newParams = "utm_source=FB&utm_campaign={{campaign.name}}|{{campaign.id}}&utm_medium={{adset.name}}|{{adset.id}}&utm_content={{ad.name}}|{{ad.id}}&utm_term={{placement}}";
+        history.replaceState({}, '', window.location.pathname + '?' + newParams);
+        params = new URLSearchParams(window.location.search);
+      }
+
+      UTM_KEYS.forEach(function (k) {
         var v = params.get(k);
         if (v) { localStorage.setItem('utmify_' + k, v); hasUtm = true; }
       });
       if (!hasUtm) {
         var restored = new URLSearchParams(window.location.search);
-        UTM_KEYS.forEach(function(k) {
+        UTM_KEYS.forEach(function (k) {
           var stored = localStorage.getItem('utmify_' + k);
           if (stored) restored.set(k, stored);
         });
@@ -96,9 +124,55 @@
     })();
   </script>
 
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1465765375140066');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1465765375140066&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <!-- Anti-Clonagem e Proteção -->
+  <script>
+    // Bloquear clique direito
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Bloquear atalhos de inspeção (F12, Ctrl+Shift+I, Ctrl+U, etc)
+    document.onkeydown = function (e) {
+      if (e.keyCode == 123 ||
+        (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) ||
+        (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) ||
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+        return false;
+      }
+    };
+
+    // Detecção básica de domínio (evita clonagem simples em outros domínios)
+    (function () {
+      const allowedDomains = ['localhost', 'viviinoronhaa.netlify.app', 'privacyvivinoronha.store']; // Adicione seus domínios reais aqui
+      const currentDomain = window.location.hostname;
+      if (!allowedDomains.some(domain => currentDomain.includes(domain))) {
+        // Se alguém clonar, redireciona para o original
+        window.location.href = 'https://viviinoronhaa.netlify.app';
+      }
+    })();
+  </script>
+
   <!-- PIXEL UTMIFY -->
   <script>
-    window.pixelId = "696eaa29651490e0173e28f9";
+    window.pixelId = "69af0ed0cb047e6d72aeba3e";
     var a = document.createElement("script");
     a.setAttribute("async", "");
     a.setAttribute("defer", "");
@@ -129,4 +203,6 @@
   </script>
 
 
-</body></html>
+</body>
+
+</html>
